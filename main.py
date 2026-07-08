@@ -14,7 +14,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[ALLOWED_ORIGIN],
     allow_credentials=True,
-    allow_methods=["GET", "OPTIONS"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -29,7 +29,7 @@ async def add_custom_headers(request: Request, call_next):
     return response
 
 
-@app.get("/stats")
+@app.api_route("/stats", methods=["GET", "POST"])
 async def stats(values: str):
     nums = [int(x.strip()) for x in values.split(",") if x.strip() != ""]
     count = len(nums)
